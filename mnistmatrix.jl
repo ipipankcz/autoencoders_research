@@ -1,4 +1,5 @@
-# Pkg.add("ProgressMeter"); Pkg.add("MNIST"); Pkg.add("Distances")
+# Pkg.add("ProgressMeter"); Pkg.add("MNIST"); Pkg.add("Distances"); Pkg.add("MAT")
+using MAT
 using MNIST
 using Distances
 using ProgressMeter
@@ -17,3 +18,8 @@ similarityMatrix = spzeros(nrOfDataPoints, nrOfDataPoints);
     neighbors = neighbors[neighbors .!= i];
     similarityMatrix[neighbors,i] = 1
 end
+
+matlabFile = matopen("$YOUR_PATH/mnist.mat", "w")
+write(matlabFile, "similarityMatrix", similarityMatrix);
+write(matlabFile, "labels", labels);
+close(matlabFile)
